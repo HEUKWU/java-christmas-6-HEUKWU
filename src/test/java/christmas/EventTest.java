@@ -47,4 +47,24 @@ class EventTest {
             int discountPrice = Event.weekdayDiscount(50, 1);
         }).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    @DisplayName("입력받은 날짜가 주말이면 매인 메뉴 개수만큼 할인을 받는다.")
+    public void weekendDiscount() {
+        assertThat(Event.weekendDiscount(1, 1)).isEqualTo(2_023);
+    }
+
+    @Test
+    @DisplayName("입력받은 날짜가 주말이 아니면 할인을 받지 못한다.")
+    public void notWeekendDiscount() {
+        assertThat(Event.weekendDiscount(5, 1)).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("유요한 날짜를 입력하지 않았을 때 예외가 발생한다.")
+    public void invalidDateWeekend() {
+        assertThatThrownBy(() -> {
+            int discountPrice = Event.weekendDiscount(50, 1);
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
 }

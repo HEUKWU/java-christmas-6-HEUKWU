@@ -11,6 +11,7 @@ public class Event {
     private static final int D_DAY_DISCOUNT_PRICE = 1_000;
     private static final int D_DAY_DISCOUNT_INCREASE_PRICE = 100;
     public static int weekdayDessertDiscountPrice = 2_023;
+    public static int weekendMainDishDiscountPrice = 2_023;
 
     public static int christmasDDayDiscount(int price, int date) {
         validateDate(date);
@@ -27,6 +28,16 @@ public class Event {
 
         if (isWeekday(date)) {
             return dessertCount * weekdayDessertDiscountPrice;
+        }
+
+        return 0;
+    }
+
+    public static int weekendDiscount(int date, int mainDishCount) {
+        validateDate(date);
+
+        if (!isWeekday(date)) {
+            return mainDishCount * weekendMainDishDiscountPrice;
         }
 
         return 0;
