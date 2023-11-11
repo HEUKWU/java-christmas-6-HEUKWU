@@ -11,20 +11,20 @@ class EventTest {
     @Test
     @DisplayName("금액과 날짜를 입력하면 할인 금액을 알 수 있다.")
     public void getDiscountPrice() {
-        assertThat(Event.christmasDDayDiscount(10_000, 25)).isEqualTo(3_400);
+        assertThat(Event.christmasDDayDiscount(25)).isEqualTo(3_400);
     }
 
     @Test
     @DisplayName("이벤트 종료일자를 넘어서는 날짜 입력시에는 할인이 불가하다.")
     public void overEndDateDiscountX() {
-        assertThat(Event.christmasDDayDiscount(1_000, 31)).isEqualTo(0);
+        assertThat(Event.christmasDDayDiscount(31)).isEqualTo(0);
     }
 
     @Test
     @DisplayName("유요한 날짜를 입력하지 않았을 때 예외가 발생한다.")
     public void invalidDateInput() {
         assertThatThrownBy(() -> {
-            int discountPrice = Event.christmasDDayDiscount(50_000, 33);
+            int discountPrice = Event.christmasDDayDiscount(33);
         }).isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -71,20 +71,20 @@ class EventTest {
     @Test
     @DisplayName("입력받은 날짜가 스페셜 날짜면 할인을 받는다.")
     public void specialDayDiscount() {
-        assertThat(Event.specialDiscount(25, 10_000)).isEqualTo(1_000);
+        assertThat(Event.specialDiscount(25)).isEqualTo(1_000);
     }
 
     @Test
     @DisplayName("입력받은 날짜가 스페셜 날짜가 아니면 할인을 받지 못한다.")
     public void notSpecialDayDiscount() {
-        assertThat(Event.specialDiscount(1, 10_000)).isEqualTo(0);
+        assertThat(Event.specialDiscount(1)).isEqualTo(0);
     }
 
     @Test
     @DisplayName("유요한 날짜를 입력하지 않았을 때 예외가 발생한다.")
     public void invalidDateDiscount() {
         assertThatThrownBy(() -> {
-            int discountPrice = Event.specialDiscount(50, 10_000);
+            int discountPrice = Event.specialDiscount(50);
         }).isInstanceOf(IllegalArgumentException.class);
     }
 

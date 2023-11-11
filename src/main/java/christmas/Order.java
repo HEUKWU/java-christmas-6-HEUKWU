@@ -7,29 +7,47 @@ public class Order {
     private static final int MAX_ORDER_COUNT = 20;
 
     private final Map<String, Integer> orders;
+    private final int totalPrice;
 
-    public Order(Map<String, Integer> orders) {
+    private final int mainDishCount;
+    private final int dessertCount;
+
+    public Order(Map<String, Integer> orders, int totalPrice, int mainDishCount, int dessertCount) {
         this.orders = orders;
+        this.totalPrice = totalPrice;
+        this.mainDishCount = mainDishCount;
+        this.dessertCount = dessertCount;
     }
 
     public Map<String, Integer> getOrders() {
         return orders;
     }
 
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public int getMainDishCount() {
+        return mainDishCount;
+    }
+
+    public int getDessertCount() {
+        return dessertCount;
+    }
+
     public static Order createOrder(String input) {
         String[] inputSplit = inputValidate(input);
-        Map<String, Integer> orders = new HashMap<>();
 
+        Map<String, Integer> orders = new HashMap<>();
         for (String menu : inputSplit) {
             String[] menus = menuFormValidate(menu);
             orders.put(menus[0], Integer.parseInt(menus[1]));
         }
-
         duplicateMenuValidate(inputSplit, orders);
         orderValidate(orders);
         orderCountValidate(orders);
 
-        return new Order(orders);
+        return new Order(orders, totalPrice(orders), mainDishCount(orders), dessertCount(orders));
     }
 
     private static String[] inputValidate(String input) {
@@ -114,5 +132,48 @@ public class Order {
         if (count > MAX_ORDER_COUNT) {
             throw new IllegalArgumentException("[ERROR] 메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다.");
         }
+    }
+
+    private static int totalPrice(Map<String, Integer> orders) {
+        int price = 0;
+
+        Menu[] menus = Menu.values();
+        for (Menu menu : menus) {
+            if (orders.containsKey(menu.getName())) {
+                price += (menu.getPrice() * orders.get(menu.getName()));
+            }
+        }
+
+        return price;
+    }
+
+    private static int mainDishCount(Map<String, Integer> orders) {
+        int count = 0;
+
+        Menu[] menus = Menu.values();
+        for (Menu menu : menus) {
+            if (orders.containsKey(menu.getName())) {
+                if (menu.getType().equals("main")) {
+                    count += orders.get(menu.getName());
+                }
+            }
+        }
+
+        return count;
+    }
+
+    private static int dessertCount(Map<String, Integer> orders) {
+        int count = 0;
+
+        Menu[] menus = Menu.values();
+        for (Menu menu : menus) {
+            if (orders.containsKey(menu.getName())) {
+                if (menu.getType().equals("dessert")) {
+                    count += orders.get(menu.getName());
+                }
+            }
+        }
+
+        return count;
     }
 }

@@ -2,7 +2,6 @@ package christmas;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Arrays;
 
 public class Event {
 
@@ -22,7 +21,7 @@ public class Event {
     private static final int giftEventMinimumPrice = 120_000;
     private static final int giftEventPrice = Menu.CHAMPAGNE.getPrice();
 
-    public static int christmasDDayDiscount(int price, int date) {
+    public static int christmasDDayDiscount(int date) {
         validateDate(date);
 
         if (date > CHRISTMAS_D_DAY_EVENT_END_DATE) {
@@ -52,7 +51,7 @@ public class Event {
         return 0;
     }
 
-    public static int specialDiscount(int date, int price) {
+    public static int specialDiscount(int date) {
         validateDate(date);
 
         if (isSpecialDay(date)) {
@@ -68,10 +67,6 @@ public class Event {
         }
 
         return 0;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(badge(2));
     }
 
     public static String badge(int price) {
