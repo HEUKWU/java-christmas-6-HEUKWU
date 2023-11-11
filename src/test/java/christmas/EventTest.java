@@ -99,4 +99,28 @@ class EventTest {
     public void lessThanGiftEventMinimumPrice() {
         assertThat(Event.giftEvent(100_000)).isEqualTo(0);
     }
+
+    @Test
+    @DisplayName("총금액이 5,000원 이상이면 별 배지를 받는다.")
+    public void starBadge() {
+        assertThat(Event.badge(5_500)).isEqualTo("별");
+    }
+
+    @Test
+    @DisplayName("총금액이 10,000원 이상이면 트리 배지를 받는다.")
+    public void treeBadge() {
+        assertThat(Event.badge(15_000)).isEqualTo("트리");
+    }
+
+    @Test
+    @DisplayName("총금액이 20,000원 이상이면 산타 배지를 받는다.")
+    public void santaBadge() {
+        assertThat(Event.badge(25_000)).isEqualTo("산타");
+    }
+
+    @Test
+    @DisplayName("총금액이 배지를 받을 수 있는 최소금액 미만이면 배지를 받지 못한다.")
+    public void noBadge() {
+        assertThat(Event.badge(3_000)).isEqualTo("없음");
+    }
 }

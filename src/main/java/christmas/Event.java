@@ -2,6 +2,7 @@ package christmas;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Event {
 
@@ -67,6 +68,21 @@ public class Event {
         }
 
         return 0;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(badge(2));
+    }
+
+    public static String badge(int price) {
+        Badge[] badges = Badge.values();
+        for (Badge badge : badges) {
+            if (price >= badge.getPrice()) {
+                return badge.getBadge();
+            }
+        }
+
+        return "없음";
     }
 
     private static boolean isWeekday(int date) {
