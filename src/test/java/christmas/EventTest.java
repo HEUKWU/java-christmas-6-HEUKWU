@@ -87,4 +87,16 @@ class EventTest {
             int discountPrice = Event.specialDiscount(50, 10_000);
         }).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    @DisplayName("총금액이 증정 이벤트 최소 금액 이상이면 증정품을 받는다.")
+    public void overGiftEventMinimumPrice() {
+        assertThat(Event.giftEvent(120_000)).isEqualTo(Menu.CHAMPAGNE.getPrice());
+    }
+
+    @Test
+    @DisplayName("총금액이 증정 이벤트 최소 금액 미만이면 증정품을 받는다.")
+    public void lessThanGiftEventMinimumPrice() {
+        assertThat(Event.giftEvent(100_000)).isEqualTo(0);
+    }
 }

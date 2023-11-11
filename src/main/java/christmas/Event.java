@@ -7,13 +7,19 @@ public class Event {
 
     private static final int EVENT_START_DATE = 1;
     private static final int EVENT_END_DATE = 31;
+
     private static final int CHRISTMAS_D_DAY_EVENT_END_DATE = 25;
     private static final int D_DAY_DISCOUNT_PRICE = 1_000;
     private static final int D_DAY_DISCOUNT_INCREASE_PRICE = 100;
+
     public static int weekdayDessertDiscountPrice = 2_023;
     public static int weekendMainDishDiscountPrice = 2_023;
+
     public static int[] specialDays = {3, 10, 17, 24, 25, 31};
     public static int specialDiscountPrice = 1_000;
+
+    public static int giftEventMinimumPrice = 120_000;
+    public static int giftEventPrice = Menu.CHAMPAGNE.getPrice();
 
     public static int christmasDDayDiscount(int price, int date) {
         validateDate(date);
@@ -50,6 +56,14 @@ public class Event {
 
         if (isSpecialDay(date)) {
             return specialDiscountPrice;
+        }
+
+        return 0;
+    }
+
+    public static int giftEvent(int price) {
+        if (price >= giftEventMinimumPrice) {
+            return giftEventPrice;
         }
 
         return 0;
