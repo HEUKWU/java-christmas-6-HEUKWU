@@ -12,14 +12,14 @@ public class Event {
     private static final int D_DAY_DISCOUNT_PRICE = 1_000;
     private static final int D_DAY_DISCOUNT_INCREASE_PRICE = 100;
 
-    public static int weekdayDessertDiscountPrice = 2_023;
-    public static int weekendMainDishDiscountPrice = 2_023;
+    private static final int weekdayDessertDiscountPrice = 2_023;
+    private static final int weekendMainDishDiscountPrice = 2_023;
 
-    public static int[] specialDays = {3, 10, 17, 24, 25, 31};
-    public static int specialDiscountPrice = 1_000;
+    private static final int[] specialDays = {3, 10, 17, 24, 25, 31};
+    private static final int specialDiscountPrice = 1_000;
 
-    public static int giftEventMinimumPrice = 120_000;
-    public static int giftEventPrice = Menu.CHAMPAGNE.getPrice();
+    private static final int giftEventMinimumPrice = 120_000;
+    private static final int giftEventPrice = Menu.CHAMPAGNE.getPrice();
 
     public static int christmasDDayDiscount(int price, int date) {
         validateDate(date);
