@@ -13,9 +13,8 @@ public class Event {
     public static int weekdayDessertDiscountPrice = 2_023;
 
     public static int christmasDDayDiscount(int price, int date) {
-        if (date < EVENT_START_DATE || date > EVENT_END_DATE) {
-            throw new IllegalArgumentException("[error] 유효하지 않은 날짜입니다. 다시 입력해주세요.");
-        }
+        validateDate(date);
+
         if (date > CHRISTMAS_D_DAY_EVENT_END_DATE) {
             return 0;
         }
@@ -24,9 +23,8 @@ public class Event {
     }
 
     public static int weekdayDiscount(int date, int dessertCount) {
-        if (date < EVENT_START_DATE || date > EVENT_END_DATE) {
-            throw new IllegalArgumentException("[error] 유효하지 않은 날짜입니다. 다시 입력해주세요.");
-        }
+        validateDate(date);
+
         if (isWeekday(date)) {
             return dessertCount * weekdayDessertDiscountPrice;
         }
@@ -38,5 +36,11 @@ public class Event {
         DayOfWeek dayOfWeek = LocalDate.of(2023, 12, date).getDayOfWeek();
 
         return dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY;
+    }
+
+    private static void validateDate(int date) {
+        if (date < EVENT_START_DATE || date > EVENT_END_DATE) {
+            throw new IllegalArgumentException("[error] 유효하지 않은 날짜입니다. 다시 입력해주세요.");
+        }
     }
 }
