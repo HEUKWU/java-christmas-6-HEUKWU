@@ -12,6 +12,10 @@ public class Order {
         this.orders = orders;
     }
 
+    public Map<String, Integer> getOrders() {
+        return orders;
+    }
+
     public static Order createOrder(String input) {
         String[] inputSplit = inputValidate(input);
         Map<String, Integer> orders = new HashMap<>();
