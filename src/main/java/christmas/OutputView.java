@@ -10,16 +10,17 @@ public class OutputView {
     private static final DecimalFormat df = new DecimalFormat("###,###");
 
     public OutputView(Order order) {
+        System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
         this.order = order;
     }
 
-    public void printMenuInfo() {
+    public void printMenuInfo(int date) {
+        System.out.println("12월 " + date + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
         System.out.println("<주문 메뉴>");
         Map<String, Integer> orders = order.getOrders();
         for (String s : orders.keySet()) {
             System.out.println(s + " " + orders.get(s) + "개");
         }
-
         printTotalPrice();
     }
 
@@ -32,32 +33,37 @@ public class OutputView {
 
     public void printEventInfo(int date) {
         int totalPrice = order.getTotalPrice();
-        printGiftMenu(totalPrice);
+        int giftPrice = printGiftMenu(totalPrice);
 
-        printDiscountInfo(date, totalPrice);
+        printDiscountInfo(date, giftPrice);
     }
 
-    private void printGiftMenu(int giftPrice) {
+    private int printGiftMenu(int totalPrice) {
+        System.out.println("<증정 메뉴>");
+        int giftPrice = Event.giftEvent(totalPrice);
         if (giftPrice == 0) {
             System.out.println("없음");
-            return;
+            return 0;
         }
         System.out.println(GIFT_EVENT_MENU);
+        return giftPrice;
     }
 
-    private void printDiscountInfo(int date, int totalPrice) {
+    private void printDiscountInfo(int date, int giftPrice) {
         System.out.println("<혜택 내역>");
         int DDayDiscount = christmasDDayDiscount(Event.christmasDDayDiscount(date));
         int weekdayDiscount = weekdayDiscount(Event.weekdayDiscount(date, order.getDessertCount()));
         int weekendDiscount = weekendDiscount(Event.weekendDiscount(date, order.getMainDishCount()));
         int specialDiscount = specialDiscount(Event.specialDiscount(date));
-        int giftPrice = giftPrice(Event.giftEvent(totalPrice));
 
-        int totalDiscount = DDayDiscount + weekdayDiscount + weekendDiscount + specialDiscount + giftPrice;
+        int totalDiscount = DDayDiscount + weekdayDiscount + weekendDiscount + specialDiscount;
+        if (totalDiscount == 0) {
+            System.out.println("없음");
+        }
 
-        printTotalDiscount(totalDiscount);
-        printPaymentPrice(totalDiscount - giftPrice);
-        printBadge(totalDiscount);
+        printTotalDiscount(totalDiscount + giftPrice);
+        printPaymentPrice(totalDiscount);
+        printBadge(totalDiscount + giftPrice);
     }
 
     private int christmasDDayDiscount(int discountPrice) {

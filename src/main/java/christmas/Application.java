@@ -2,10 +2,47 @@ package christmas;
 
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
-        Order order = Order.createOrder("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
+        int date = repeatableReadDate();
+        Order order = createOrder();
+
         OutputView output = new OutputView(order);
-        output.printMenuInfo();
-        output.printEventInfo(3);
+        output.printMenuInfo(date);
+        output.printEventInfo(date);
+    }
+
+    private static int repeatableReadDate() {
+        int date = 0;
+        boolean errorFlag = true;
+
+        while (true) {
+            try {
+                date = InputView.readDate();
+                errorFlag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+            if (!errorFlag) {
+                return date;
+            }
+        }
+    }
+
+    private static Order createOrder() {
+        Order order = null;
+        boolean errorFlag = true;
+
+        while (true) {
+            String input = InputView.readOrder();
+            try {
+                order = Order.createOrder(input);
+                errorFlag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+
+            if (!errorFlag) {
+                return order;
+            }
+        }
     }
 }

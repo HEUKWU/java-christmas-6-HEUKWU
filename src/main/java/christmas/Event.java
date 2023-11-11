@@ -5,9 +5,6 @@ import java.time.LocalDate;
 
 public class Event {
 
-    private static final int EVENT_START_DATE = 1;
-    private static final int EVENT_END_DATE = 31;
-
     private static final int CHRISTMAS_D_DAY_EVENT_END_DATE = 25;
     private static final int D_DAY_DISCOUNT_PRICE = 1_000;
     private static final int D_DAY_DISCOUNT_INCREASE_PRICE = 100;
@@ -22,8 +19,6 @@ public class Event {
     private static final int giftEventPrice = Menu.CHAMPAGNE.getPrice();
 
     public static int christmasDDayDiscount(int date) {
-        validateDate(date);
-
         if (date > CHRISTMAS_D_DAY_EVENT_END_DATE) {
             return 0;
         }
@@ -32,8 +27,6 @@ public class Event {
     }
 
     public static int weekdayDiscount(int date, int dessertCount) {
-        validateDate(date);
-
         if (isWeekday(date)) {
             return dessertCount * weekdayDessertDiscountPrice;
         }
@@ -42,8 +35,6 @@ public class Event {
     }
 
     public static int weekendDiscount(int date, int mainDishCount) {
-        validateDate(date);
-
         if (!isWeekday(date)) {
             return mainDishCount * weekendMainDishDiscountPrice;
         }
@@ -52,8 +43,6 @@ public class Event {
     }
 
     public static int specialDiscount(int date) {
-        validateDate(date);
-
         if (isSpecialDay(date)) {
             return specialDiscountPrice;
         }
@@ -84,12 +73,6 @@ public class Event {
         DayOfWeek dayOfWeek = LocalDate.of(2023, 12, date).getDayOfWeek();
 
         return dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY;
-    }
-
-    private static void validateDate(int date) {
-        if (date < EVENT_START_DATE || date > EVENT_END_DATE) {
-            throw new IllegalArgumentException("[error] 유효하지 않은 날짜입니다. 다시 입력해주세요.");
-        }
     }
 
     private static boolean isSpecialDay(int date) {
