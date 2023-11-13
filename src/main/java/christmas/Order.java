@@ -71,9 +71,16 @@ public class Order {
     }
 
     private static void menuExistValidate(String menu) {
-        try {
-            Menu.valueOf(menu);
-        } catch (IllegalArgumentException e) {
+        int count = 0;
+
+        Menu[] values = Menu.values();
+        for (Menu value : values) {
+            if (value.isContainMenu(menu)) {
+                count++;
+            }
+        }
+
+        if (count == 0) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }

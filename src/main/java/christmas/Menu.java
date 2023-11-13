@@ -39,6 +39,10 @@ public enum Menu {
         return type;
     }
 
+    public boolean isContainMenu(String menu) {
+        return name.equals(menu);
+    }
+
     public boolean isMainType(Menu menu) {
         return menu.type.equals("main");
     }
