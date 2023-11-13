@@ -38,4 +38,16 @@ public enum Menu {
     public String getType() {
         return type;
     }
+
+    public boolean isMainType(Menu menu) {
+        return menu.type.equals("main");
+    }
+
+    public boolean isDessertType(Menu menu) {
+        return menu.type.equals("dessert");
+    }
+
+    public boolean isBeverageType(Menu menu) {
+        return menu.type.equals("beverage");
+    }
 }

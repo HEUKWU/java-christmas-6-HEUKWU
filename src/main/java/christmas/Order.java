@@ -104,7 +104,7 @@ public class Order {
         Menu[] menus = Menu.values();
         for (Menu menu : menus) {
             if (orders.containsKey(menu.getName())) {
-                if (!menu.getType().equals("beverage")) {
+                if (!menu.isBeverageType(menu)) {
                     count++;
                 }
             }
@@ -146,7 +146,7 @@ public class Order {
         Menu[] menus = Menu.values();
         for (Menu menu : menus) {
             if (orders.containsKey(menu.getName())) {
-                if (menu.getType().equals("main")) {
+                if (menu.isMainType(menu)) {
                     count += orders.get(menu.getName());
                 }
             }
@@ -161,7 +161,7 @@ public class Order {
         Menu[] menus = Menu.values();
         for (Menu menu : menus) {
             if (orders.containsKey(menu.getName())) {
-                if (menu.getType().equals("dessert")) {
+                if (menu.isDessertType(menu)) {
                     count += orders.get(menu.getName());
                 }
             }
